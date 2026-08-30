@@ -1,13 +1,11 @@
 [project]
-name = "workspace"
+name = "debugging-monitor"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "arxiv==1.4.8",
-    "gradio>=6.25.0",
-    "langchain-ollama>=1.1.0",
     "langchain>=1.3.15",
     "langchain-community>=0.4.2",
     "langchain-core>=1.5.5",
@@ -16,15 +14,4 @@ dependencies = [
     "langgraph>=1.2.11",
     "pydantic>=2.13.4",
     "python-dotenv>=1.2.3",
-    "torch>=2.13.0",
 ]
-
-[project.scripts]
-workspace = "workspace:main"
-
-[build-system]
-requires = ["uv_build>=0.12.5,<0.13.0"]
-build-backend = "uv_build"
-
-[tool.uv.workspace]
-members = ["local_models", "AgenticLangGraph", "MCPDemoLangchain", "Debugging_monitor"]

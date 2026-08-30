@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gameplan | 40 LPA AI Backend Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="workspace-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <span class="brand-mark">G</span>
+          <div>
+            <p class="eyebrow">Career operating system</p>
+            <h1>Gameplan</h1>
+          </div>
+        </div>
+        <div class="topbar-meta">
+          <span class="target-label">Target</span>
+          <strong>40 LPA · Senior AI Backend</strong>
+          <span class="status-dot" aria-label="Plan active"></span>
+        </div>
+      </header>
+
+      <section class="goal-strip" aria-labelledby="goal-title">
+        <div>
+          <p class="eyebrow">North star</p>
+          <h2 id="goal-title">Build proof that you can own reliable AI systems at enterprise scale.</h2>
+        </div>
+        <div class="goal-facts" aria-label="Career plan constraints">
+          <span><b>6–9</b> months</span>
+          <span><b>10–12</b> hrs/week</span>
+          <span><b>3</b> target markets</span>
+        </div>
+      </section>
+
+      <section class="metrics" aria-label="Progress summary">
+        <article>
+          <span>Execution</span>
+          <strong id="phase-count">0 / 6</strong>
+          <small>phases complete</small>
+        </article>
+        <article>
+          <span>This week</span>
+          <strong>11h</strong>
+          <small>capacity budget</small>
+        </article>
+        <article>
+          <span>Evidence</span>
+          <strong id="evidence-count">0</strong>
+          <small>portfolio signals</small>
+        </article>
+        <article class="accent-metric">
+          <span>Hiring mode</span>
+          <strong>Month 3</strong>
+          <small>applications begin</small>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <section class="roadmap-panel" aria-labelledby="roadmap-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Build sequence</p>
+              <h2 id="roadmap-title">Proof, not promises</h2>
+            </div>
+            <div class="progress-track" aria-label="Roadmap completion"><span id="progress-bar"></span></div>
+          </div>
+          <div id="phase-list" class="phase-list"></div>
+        </section>
+
+        <aside class="command-column">
+          <section class="focus-panel" aria-labelledby="focus-title">
+            <p class="eyebrow">Current focus</p>
+            <h2 id="focus-title">Phase 0: Positioning</h2>
+            <p id="focus-outcome">Turn prior Linux, DevOps, and Python depth into a credible AI-backend ownership narrative.</p>
+            <ul id="focus-items"></ul>
+          </section>
+
+          <section class="allocation-panel" aria-labelledby="allocation-title">
+            <div class="section-heading compact"><h2 id="allocation-title">Weekly allocation</h2><span>11h</span></div>
+            <div class="allocation-row"><span>Build</span><i style="--width:55%"></i><b>6h</b></div>
+            <div class="allocation-row"><span>Architecture</span><i style="--width:18%"></i><b>2h</b></div>
+            <div class="allocation-row"><span>Interview</span><i style="--width:18%"></i><b>2h</b></div>
+            <div class="allocation-row"><span>Outreach</span><i style="--width:9%"></i><b>1h</b></div>
+          </section>
+
+          <section class="interview-panel" aria-labelledby="interview-title">
+            <div class="section-heading compact"><h2 id="interview-title">Interview drill</h2><button id="new-question" class="icon-button" title="Change interview question" aria-label="Change interview question"><i data-lucide="refresh-cw"></i></button></div>
+            <p id="interview-question"></p>
+            <small>Answer: constraints → alternatives → decision → failure modes → metrics.</small>
+          </section>
+        </aside>
+      </section>
+
+      <section class="evidence-section" aria-labelledby="evidence-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Career proof</p>
+            <h2 id="evidence-title">Evidence ledger</h2>
+          </div>
+          <form id="evidence-form" class="evidence-form">
+            <label class="sr-only" for="evidence-input">Add portfolio evidence</label>
+            <input id="evidence-input" required maxlength="160" placeholder="Add an ADR, benchmark, demo, test report, or interview insight" />
+            <button type="submit" class="command-button"><i data-lucide="plus"></i>Record</button>
+          </form>
+        </div>
+        <div id="evidence-list" class="evidence-list"></div>
+      </section>
+
+      <section class="mentor-section" aria-labelledby="mentor-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Local model team</p>
+            <h2 id="mentor-title">Principal Architect Review</h2>
+          </div>
+          <label class="model-picker" for="model-select">Model
+            <select id="model-select">
+              <option value="qwen3:8b">Qwen3 8B · Architect</option>
+              <option value="llama3.1:8b">Llama 3.1 8B · Challenger</option>
+              <option value="mistral:7b">Mistral 7B · Reviewer</option>
+            </select>
+          </label>
+        </div>
+        <form id="mentor-form" class="mentor-form">
+          <label class="sr-only" for="mentor-input">Request an architecture review</label>
+          <textarea id="mentor-input" required maxlength="12000" placeholder="Paste an architecture decision, code-review question, or interview answer for a strict local-model review."></textarea>
+          <button id="mentor-submit" type="submit" class="command-button"><i data-lucide="send"></i>Review</button>
+        </form>
+        <article id="mentor-answer" class="mentor-answer" aria-live="polite">Ask Qwen3 to review your first Phase 0 deliverable: the one-page Sentinel, Hadron/Aether, and Zenith architecture brief.</article>
+      </section>
+    </main>
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
