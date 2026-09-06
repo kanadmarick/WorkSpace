@@ -7,3 +7,4 @@ python-dotenv
 langchain-nvidia-ai-endpoints
 arxiv==1.4.8
 langchain-tavily
+langgraph-cli[inmem]

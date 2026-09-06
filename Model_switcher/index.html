@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ollama Model Switcher</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0f172a;
+        --panel: #111827;
+        --panel-alt: #1f2937;
+        --accent: #60a5fa;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --success: #22c55e;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        background: linear-gradient(180deg, var(--bg), #020817);
+        color: var(--text);
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+      }
+
+      .card {
+        width: min(900px, 92vw);
+        background: rgba(17, 24, 39, 0.96);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 18px;
+        box-shadow: 0 25px 55px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+      }
+
+      .header {
+        padding: 24px 28px 16px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      }
+
+      .header h1 {
+        margin: 0 0 8px;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+      }
+
+      .status {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .body {
+        padding: 24px 28px 28px;
+      }
+
+      .selector {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 14px;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+
+      select {
+        width: 100%;
+        background: var(--panel-alt);
+        color: var(--text);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 12px;
+        padding: 14px 16px;
+        font-size: 1rem;
+      }
+
+      button {
+        border: 0;
+        border-radius: 12px;
+        padding: 14px 18px;
+        background: var(--accent);
+        color: #08111d;
+        font-weight: 700;
+        font-size: 0.98rem;
+        cursor: pointer;
+      }
+
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin: 10px 0 18px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.14);
+        color: #bbf7d0;
+        border: 1px solid rgba(34, 197, 94, 0.4);
+        font-size: 0.88rem;
+      }
+
+      .model-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+      }
+
+      .model-item {
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+
+      .model-item strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .model-item small {
+        color: var(--muted);
+      }
+
+      .model-item.active {
+        border-color: rgba(96, 165, 250, 0.8);
+        box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.8);
+      }
+
+      .hidden { display: none; }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <div class="header">
+        <h1>Ollama Model Switcher</h1>
+        <div class="status" id="status">Loading models…</div>
+      </div>
+
+      <div class="body">
+        <div class="selector">
+          <select id="model-select" aria-label="Select model"></select>
+          <button id="switch-button" type="button">Switch model</button>
+        </div>
+
+        <div class="meta">
+          <div class="pill" id="current-pill">Current: none</div>
+          <div class="status" id="count-label">0 models</div>
+        </div>
+
+        <div id="model-list" class="model-list"></div>
+      </div>
+    </main>
+
+    <script>
+      const modelSelect = document.getElementById('model-select');
+      const modelList = document.getElementById('model-list');
+      const switchButton = document.getElementById('switch-button');
+      const statusNode = document.getElementById('status');
+      const currentPill = document.getElementById('current-pill');
+      const countLabel = document.getElementById('count-label');
+
+      async function loadModels() {
+        statusNode.textContent = 'Loading models…';
+        switchButton.disabled = true;
+
+        try {
+          const response = await fetch('/api/models');
+          const data = await response.json();
+          const models = data.models || [];
+          const selected = data.selected_model || null;
+
+          modelSelect.innerHTML = '';
+          modelList.innerHTML = '';
+
+          if (!models.length) {
+            modelSelect.innerHTML = '<option value="">No models found</option>';
+            statusNode.textContent = 'No local Ollama models were found.';
+            currentPill.textContent = 'Current: none';
+            countLabel.textContent = '0 models';
+            return;
+          }
+
+          for (const model of models) {
+            const option = document.createElement('option');
+            option.value = model.name;
+            option.textContent = `${model.name} (${model.category})`;
+            if (model.name === selected) option.selected = true;
+            modelSelect.appendChild(option);
+
+            const item = document.createElement('div');
+            item.className = `model-item ${model.name === selected ? 'active' : ''}`;
+            item.innerHTML = `<strong>${model.name}</strong><small>${model.category}</small>`;
+            modelList.appendChild(item);
+          }
+
+          currentPill.textContent = `Current: ${selected || 'none'}`;
+          countLabel.textContent = `${models.length} models`;
+          statusNode.textContent = selected ? 'Model list ready.' : 'Select a model to switch.';
+        } catch (error) {
+          statusNode.textContent = 'Unable to load models from Ollama.';
+          currentPill.textContent = 'Current: none';
+          countLabel.textContent = '0 models';
+        } finally {
+          switchButton.disabled = false;
+        }
+      }
+
+      async function switchModel() {
+        const model = modelSelect.value;
+        if (!model) return;
+
+        switchButton.disabled = true;
+        statusNode.textContent = `Switching to ${model}…`;
+
+        try {
+          const response = await fetch('/api/select-model', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ model })
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.error || 'Unable to switch');
+          }
+          statusNode.textContent = `Selected ${data.selected_model}`;
+          currentPill.textContent = `Current: ${data.selected_model}`;
+          await loadModels();
+        } catch (error) {
+          statusNode.textContent = error.message || 'Failed to switch model';
+        } finally {
+          switchButton.disabled = false;
+        }
+      }
+
+      switchButton.addEventListener('click', switchModel);
+      loadModels();
+    </script>
+  </body>
+</html>

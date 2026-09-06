@@ -12,6 +12,8 @@ __pycache__/
 *.pyc
 .serena/
 .playwright-mcp/
+.langgraph_api/
+**/.langgraph_api/
 .ipynb_checkpoints/
 **/.ipynb_checkpoints/
 Local_Models/

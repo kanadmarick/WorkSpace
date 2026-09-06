@@ -1,0 +1,74 @@
+{
+  "ollama_base_url": "http://127.0.0.1:11434",
+  "classifier_model": "qwen2.5:1.5b",
+  "classifier_options": {
+    "num_gpu": 0,
+    "temperature": 0
+  },
+  "task_options": {
+    "num_gpu": -1,
+    "temperature": 0.2
+  },
+  "task_keep_alive": "10m",
+  "selected_model": "llama3.2:1b",
+  "category_models": {
+    "code": "qwen2.5-coder:7b",
+    "chat": "llama3.2:1b",
+    "math": "deepseek-r1:7b",
+    "writing": "mistral:7b"
+  },
+  "available_models": [
+    {
+      "name": "llava:7b",
+      "category": "vision"
+    },
+    {
+      "name": "qwen2.5:1.5b",
+      "category": "chat"
+    },
+    {
+      "name": "llama3.2:1b",
+      "category": "chat"
+    },
+    {
+      "name": "phi4-mini:latest",
+      "category": "code"
+    },
+    {
+      "name": "gemma3:4b",
+      "category": "chat"
+    },
+    {
+      "name": "nomic-embed-text:latest",
+      "category": "embedding"
+    },
+    {
+      "name": "deepseek-r1:7b",
+      "category": "math"
+    },
+    {
+      "name": "qwen2.5-coder:7b",
+      "category": "code"
+    },
+    {
+      "name": "llama3.2:3b",
+      "category": "chat"
+    },
+    {
+      "name": "qwen2.5:3b",
+      "category": "chat"
+    },
+    {
+      "name": "mistral:7b",
+      "category": "writing"
+    },
+    {
+      "name": "llama3.1:8b",
+      "category": "chat"
+    },
+    {
+      "name": "qwen3:8b",
+      "category": "chat"
+    }
+  ]
+}
