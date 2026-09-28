@@ -7,3 +7,4 @@ langchain_text_splitters
 sentence-transformers
 faiss-cpu
 chromadb
+pymongo
